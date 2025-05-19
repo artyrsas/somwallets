@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>SomWallet</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background: #f2f2f2; }
+    h1 { color: #222; }
+    .balance { font-size: 32px; font-weight: bold; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <h1>Добро пожаловать в SomWallet</h1>
+  <p>Ваш кошелек успешно создан.</p>
+  <div class="balance" id="balance">Баланс: 0 сом</div>
+  <script>
+    // Иллюзия перевода через 20 минут
+    setTimeout(() => {
+      document.getElementById("balance").innerText = "Баланс: 465,000 сом";
+    }, 1200000); // 20 минут в миллисекундах
+  </script>
+</body>
+</html>

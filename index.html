@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>SomWallet</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background: #f2f2f2; }
-    h1 { color: #222; }
-    .balance { font-size: 32px; font-weight: bold; margin-top: 30px; }
-  </style>
+<meta charset="UTF-8" />
+<title>SomWallet</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; text-align: center; }
+  button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  #balance { font-size: 24px; margin: 20px; color: green; }
+  #address { font-family: monospace; word-break: break-all; margin: 10px; }
+</style>
 </head>
 <body>
-  <h1>Добро пожаловать в SomWallet</h1>
-  <p>Ваш кошелек успешно создан.</p>
-  <div class="balance" id="balance">Баланс: 0 сом</div>
-  <script>
-    // Иллюзия перевода через 20 минут
-    setTimeout(() => {
-      document.getElementById("balance").innerText = "Баланс: 465,000 сом";
-    }, 1200000); // 20 минут в миллисекундах
-  </script>
+
+<h1>Добро пожаловать в SomWallet</h1>
+
+<div id="address">Адрес кошелька: <span id="walletAddress">не создан</span></div>
+
+<div id="balance">Баланс: 0 сом</div>
+
+<button id="createWalletBtn">Создать кошелек</button>
+<button id="sendFakeBtn" disabled>Отправить иллюзию 460,000 сом</button>
+<button id="refreshBtn" disabled>Обновить баланс</button>
+
+<script>
+let walletAddress = "";
+let balance = 0;
+
+function generateAddress() {
+  const chars = "abcdef0123456789";
+  let addr = "0x";
+  for(let i=0; i<16; i++) {
+    addr += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return addr;
+}
+
+document.getElementById("createWalletBtn").onclick = function() {
+  walletAddress = generateAddress();
+  document.getElementById("walletAddress").textContent = walletAddress;
+  balance = 0;
+  document.getElementById("balance").textContent = Баланс: ${balance} сом;
+  this.disabled = true;
+  document.getElementById("sendFakeBtn").disabled = false;
+  document.getElementById("refreshBtn").disabled = false;
+};
+
+document.getElementById("sendFakeBtn").onclick = function() {
+  this.disabled = true;
+  alert("Иллюзия перевода будет видна через 20 минут");
+  setTimeout(() => {
+    balance = 460000;
+    document.getElementById("balance").textContent = Баланс: ${balance} сом;
+    alert("Иллюзорный перевод на 460,000 сом добавлен!");
+  }, 20 * 60 * 1000); // 20 минут
+};
+
+document.getElementById("refreshBtn").onclick = function() {
+  document.getElementById("balance").textContent = Баланс: ${balance} сом;
+};
+</script>
+
 </body>
 </html>
